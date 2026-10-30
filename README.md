@@ -51,12 +51,16 @@ The summary library currently overrides CMake's job limit with its detected CPU
 count; use a CPU-limited container or process affinity if that still uses too much
 memory.
 
-CUDA defaults to `all-major` architectures supported by the installed toolkit.
-For a build used only on this RTX 5090, `CMAKE_CUDA_ARCHITECTURES=120` reduces
-compilation work. For HIP builds without an accessible GPU (such as a clean
-chroot), set `AMDGPU_TARGETS` to the intended device, for example `gfx1100`.
-CI compiles CUDA for `75` and HIP for `gfx1100`, without requiring physical
-GPUs. The RTX 5090 build is separately checked locally with CUDA target `120`.
+CUDA defaults to `native`, detecting the GPUs present during the local build.
+This lets llama.cpp select architecture-specific Blackwell instructions and
+avoids compiling for unrelated GPUs. For a build without GPU access, provide
+an explicit list such as `CMAKE_CUDA_ARCHITECTURES='75;120'`; `120` alone targets
+this RTX 5090. Avoid `all` and `all-major`: the pinned summary engine cannot
+correctly translate those aliases for Blackwell.
+For HIP builds without an accessible GPU (such as a clean chroot), set
+`AMDGPU_TARGETS` to the intended device, for example `gfx1100`.
+CI compiles CUDA for both `75` and `120`, and HIP for `gfx1100`, without requiring
+physical GPUs. The default native CUDA build is separately checked on the RTX 5090.
 Compilation does not establish runtime support on untested GPU models.
 Do not redistribute a machine-specific build as a general
 binary package. No GPU detection changes a package's dependencies.
