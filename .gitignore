@@ -1,0 +1,15 @@
+/upstream/
+**/src/
+**/pkg/
+*.tar.gz
+*.pkg.tar.*
+*.log
+/validation/models/
+/validation/*.wav
+/validation/*.f32
+/validation/*.png
+/validation/runtime/
+
+/packaging/*/SourceSans3VF-Upright.ttf
+/packaging/*/source-sans-LICENSE.md
+/validation/font.patch
