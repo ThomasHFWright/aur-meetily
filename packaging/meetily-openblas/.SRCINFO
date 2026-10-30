@@ -24,6 +24,7 @@ pkgbase = meetily-openblas
 	depends = gdk-pixbuf2
 	depends = xz
 	depends = libsoup3
+	depends = xdg-utils
 	depends = alsa-lib
 	depends = ffmpeg
 	depends = gtk3
@@ -31,6 +32,7 @@ pkgbase = meetily-openblas
 	depends = openssl
 	depends = webkit2gtk-4.1
 	depends = openblas
+	optdepends = ollama: local Ollama model provider
 	provides = meetily=0.4.1
 	conflicts = meetily
 	options = !lto

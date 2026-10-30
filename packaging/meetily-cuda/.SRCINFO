@@ -24,6 +24,7 @@ pkgbase = meetily-cuda
 	depends = gdk-pixbuf2
 	depends = xz
 	depends = libsoup3
+	depends = xdg-utils
 	depends = alsa-lib
 	depends = ffmpeg
 	depends = gtk3
@@ -32,6 +33,7 @@ pkgbase = meetily-cuda
 	depends = webkit2gtk-4.1
 	depends = cuda
 	depends = nvidia-utils
+	optdepends = ollama: local Ollama model provider
 	provides = meetily=0.4.1
 	conflicts = meetily
 	options = !lto

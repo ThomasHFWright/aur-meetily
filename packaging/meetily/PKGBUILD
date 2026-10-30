@@ -7,9 +7,10 @@ arch=('x86_64')
 url='https://github.com/Zackriya-Solutions/meetily'
 license=('MIT' 'OFL-1.1')
 depends=('glibc' 'libgcc' 'libstdc++' 'libgomp' 'dbus' 'cairo' 'hicolor-icon-theme'
-         'glib2' 'gdk-pixbuf2' 'xz' 'libsoup3' 'alsa-lib' 'ffmpeg' 'gtk3' 'libappindicator-gtk3' 'openssl' 'webkit2gtk-4.1')
+         'glib2' 'gdk-pixbuf2' 'xz' 'libsoup3' 'xdg-utils' 'alsa-lib' 'ffmpeg' 'gtk3' 'libappindicator-gtk3' 'openssl' 'webkit2gtk-4.1')
 makedepends=('clang' 'cmake' 'git' 'nodejs>=20' 'pnpm' 'rust' 'python')
 conflicts=('meetily-cuda' 'meetily-vulkan' 'meetily-hipblas' 'meetily-openblas' 'meetily-openmp' 'meetily-bin' 'meetily-git')
+optdepends=('ollama: local Ollama model provider')
 options=('!lto' '!debug')
 source=("meetily-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz"
         'arch.patch' 'meetily.desktop'

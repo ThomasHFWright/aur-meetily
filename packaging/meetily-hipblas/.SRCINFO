@@ -25,6 +25,7 @@ pkgbase = meetily-hipblas
 	depends = gdk-pixbuf2
 	depends = xz
 	depends = libsoup3
+	depends = xdg-utils
 	depends = alsa-lib
 	depends = ffmpeg
 	depends = gtk3
@@ -34,6 +35,7 @@ pkgbase = meetily-hipblas
 	depends = hipblas
 	depends = rocblas
 	depends = hip-runtime-amd
+	optdepends = ollama: local Ollama model provider
 	provides = meetily=0.4.1
 	conflicts = meetily
 	options = !lto
