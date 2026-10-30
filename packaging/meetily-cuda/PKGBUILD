@@ -16,11 +16,13 @@ options=('!lto' '!debug')
 source=("meetily-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz"
         'arch.patch' 'meetily.desktop'
         'SourceSans3VF-Upright.ttf::https://raw.githubusercontent.com/adobe-fonts/source-sans/3.052R/VF/SourceSans3VF-Upright.ttf'
-        'source-sans-LICENSE.md::https://raw.githubusercontent.com/adobe-fonts/source-sans/3.052R/LICENSE.md')
+        'source-sans-LICENSE.md::https://raw.githubusercontent.com/adobe-fonts/source-sans/3.052R/LICENSE.md'
+        'onnxruntime-1.22.0-x86_64.tgz::https://cdn.pyke.io/0/pyke:ort-rs/ms@1.22.0/x86_64-unknown-linux-gnu.tgz')
 sha256sums=('66f06a1c4b60334d1c6d62c5f97bc5e847df33e98240ef125be01bacb7274b88'
             '47f7a3f53dcb7b6380871c319d9db7de74642108f082469affe5fbbf0c887f63' '5e7e443ebafc9c2cdedede09c6cbe6be646358b52954151753c58ddb8e332016'
             '1147db9a3f0edd4956068de77930148acce2742dd76d57f7239b2b1c687ac63f'
-            '89ad2c4f66dd29127527493e729c31e731f111cf10faf5774c3db9275ed0c22c')
+            '89ad2c4f66dd29127527493e729c31e731f111cf10faf5774c3db9275ed0c22c'
+            'ed1716de95974bf47ab0223ca33734a0b5a5d09a181225d0e8ed62d070aea893')
 _features=(--features cuda)
 _helper_features=(--features cuda)
 
@@ -50,6 +52,8 @@ build() {
   # Use the bindings shipped with this Whisper version on newer Clang releases.
   export WHISPER_DONT_GENERATE_BINDINGS=1
   export CMAKE_POSITION_INDEPENDENT_CODE=ON
+  # Fetch and verify the pinned ONNX library through makepkg, before compilation.
+  export ORT_LIB_LOCATION="$srcdir/onnxruntime/lib"
   export CARGO_TARGET_DIR="$srcdir/target"
   export CMAKE_CUDA_ARCHITECTURES="${CMAKE_CUDA_ARCHITECTURES:-all-major}"
   # Recent CCCL releases require an explicit iterator header.

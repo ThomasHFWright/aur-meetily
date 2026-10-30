@@ -13,3 +13,5 @@
 /packaging/*/SourceSans3VF-Upright.ttf
 /packaging/*/source-sans-LICENSE.md
 /validation/font.patch
+
+*.tgz

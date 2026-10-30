@@ -80,6 +80,10 @@ that repository secret before enabling publication. GitHub must permit Actions
 to create and merge pull requests. This workflow publishes source recipes, not
 binaries, and does not install updates on users' machines.
 
+The ONNX Runtime archive already used by upstream is downloaded and checksum
+verified by makepkg before compilation; this avoids the Rust build script's
+fragile download path. Meetily and its Whisper/summary engines build from source.
+
 The Source Sans font is fetched from a pinned Adobe release with a checksum
 and bundled locally, so Next.js does not fetch Google Fonts during compilation.
 The font license is installed alongside the application license.
