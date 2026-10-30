@@ -72,7 +72,7 @@ jobs:
             CMAKE_CUDA_ARCHITECTURES='75;120' CARGO_INCREMENTAL=0 RUSTC_WRAPPER=/usr/bin/sccache \
             CMAKE_C_COMPILER_LAUNCHER=sccache CMAKE_CXX_COMPILER_LAUNCHER=sccache \
             CMAKE_CUDA_COMPILER_LAUNCHER=sccache CMAKE_HIP_COMPILER_LAUNCHER=sccache \
-            SCCACHE_DIR=/home/builder/.cache/sccache SCCACHE_CACHE_SIZE=1G \
+            SCCACHE_DIR=/home/builder/.cache/sccache SCCACHE_CACHE_SIZE=${{ matrix.package == 'meetily-cuda' && '4G' || '1G' }} \
             SCCACHE_IGNORE_SERVER_IO_ERROR=1 makepkg --cleanbuild --check --noconfirm
       - name: Show compiler cache statistics
         if: always() && steps.build.outcome != 'skipped'

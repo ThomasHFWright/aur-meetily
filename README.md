@@ -81,7 +81,9 @@ recipes to AUR. Failed checks block publication. Building does not receive the
 AUR SSH key; a separate publication job uses `AUR_SSH_PRIVATE_KEY`.
 
 Future CI runs use [sccache](https://github.com/mozilla/sccache) for Rust and native C/C++/CUDA/HIP compilation, with
-one 1 GiB cache per variant. Clean source extraction and all package checks still
+one 4 GiB cache for CUDA and one 1 GiB cache per other variant. CUDA needs the
+larger cache to retain both the summary helper and application compilation results.
+Clean source extraction and all package checks still
 run. Compiler caches match compiler versions, inputs, and flags; changed or evicted
 entries rebuild normally. The first cache-enabled run populates the caches, so
 speedups begin on subsequent runs and are not guaranteed after toolchain updates.
