@@ -7,12 +7,12 @@ CUDA, ROCm, or Vulkan development packages.
 
 | Package | Transcription backend | Intended hardware |
 | --- | --- | --- |
-| `meetily` | CPU | Any supported x86-64 CPU; no GPU required |
-| `meetily-openblas` | CPU with OpenBLAS | CPU-only machines |
-| `meetily-openmp` | CPU with OpenMP | CPU-only machines |
-| `meetily-cuda` | CUDA | NVIDIA GPUs supported by the installed CUDA toolkit |
-| `meetily-vulkan` | Vulkan | Compatible AMD, Intel, and NVIDIA GPUs |
-| `meetily-hipblas` | ROCm/HIPBLAS | AMD GPUs supported by the installed ROCm toolchain |
+| [`meetily`](https://aur.archlinux.org/packages/meetily) | CPU | Any supported x86-64 CPU; no GPU required |
+| [`meetily-openblas`](https://aur.archlinux.org/packages/meetily-openblas) | CPU with OpenBLAS | CPU-only machines |
+| [`meetily-openmp`](https://aur.archlinux.org/packages/meetily-openmp) | CPU with OpenMP | CPU-only machines |
+| [`meetily-cuda`](https://aur.archlinux.org/packages/meetily-cuda) | CUDA | NVIDIA GPUs supported by the installed CUDA toolkit |
+| [`meetily-vulkan`](https://aur.archlinux.org/packages/meetily-vulkan) | Vulkan | Compatible AMD, Intel, and NVIDIA GPUs |
+| [`meetily-hipblas`](https://aur.archlinux.org/packages/meetily-hipblas) | ROCm/HIPBLAS | AMD GPUs supported by the installed ROCm toolchain |
 
 Metal and CoreML are macOS backends, not Linux/AUR options. A laptop's integrated
 GPU may support Vulkan; the CPU variants do not require GPU support at all.
@@ -63,9 +63,8 @@ binary package. No GPU detection changes a package's dependencies.
 
 ## Updates and publication
 
-The recipes are being validated locally and are not yet published on AUR.
-Once published, select the appropriate package in Shelly or install with, for
-example, `paru -S meetily-cuda`. Normal AUR updates (`paru -Syu`, or Shelly's
+All six recipes have passed CI and been pushed to AUR. Select the appropriate
+package in Shelly or install with, for example, `paru -S meetily-cuda`. Normal AUR updates (`paru -Syu`, or Shelly's
 update screen) rebuild that variant when its recipe changes. GPU drivers remain
 managed by your distribution.
 
@@ -75,9 +74,17 @@ variants in Arch containers, merge the tested revision, and publish the verified
 recipes to AUR. Failed checks block publication. Building does not receive the
 AUR SSH key; a separate publication job uses `AUR_SSH_PRIVATE_KEY`.
 
-Create the six AUR package repositories under the maintainer account and configure
-that repository secret before enabling publication. GitHub must permit Actions
-to create and merge pull requests. This workflow publishes source recipes, not
+Future CI runs use [sccache](https://github.com/mozilla/sccache) for Rust and native C/C++/CUDA/HIP compilation, with
+one 1 GiB cache per variant. Clean source extraction and all package checks still
+run. Compiler caches match compiler versions, inputs, and flags; changed or evicted
+entries rebuild normally. The first cache-enabled run populates the caches, so
+speedups begin on subsequent runs and are not guaranteed after toolchain updates.
+Cache statistics appear in each build log. This only enables caching in GitHub
+Actions; local AUR builds keep the standard makepkg behavior.
+
+Publication is configured for the Snoopey maintainer account, with the publisher
+key stored as a GitHub Actions secret. Actions may create and merge release
+update pull requests. This workflow publishes source recipes, not
 binaries, and does not install updates on users' machines.
 
 The ONNX Runtime archive already used by upstream is downloaded and checksum
@@ -104,3 +111,12 @@ makepkg --check
 The package check exercises the summary helper's ping/shutdown protocol.
 Successful compilation and protocol checks do not establish transcription
 accuracy, microphone/system-audio capture, or GPU execution on every device.
+
+Validation for 0.4.1 (2026-10-30): all six variants built and passed their package
+checks. CPU, NVIDIA RTX 5090 (CUDA and Vulkan), AMD Radeon 610M (Vulkan), and
+Intel Arc Meteor Lake (Vulkan) transcribed the same spoken sample through
+Meetily's actual Whisper engine. The CUDA package on the desktop and Vulkan package on the laptop passed
+installed launch and package integrity checks. Both were then uninstalled at
+the user's request, ready for installation through an AUR helper. ROCm was compiled in a clean Arch container for `gfx1100`,
+without a physical ROCm runtime test. Live microphone/system-audio recording
+and model-generated summaries have not been tested.
