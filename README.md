@@ -51,12 +51,14 @@ The summary library currently overrides CMake's job limit with its detected CPU
 count; use a CPU-limited container or process affinity if that still uses too much
 memory.
 
-CUDA defaults to `native`, detecting the GPUs present during the local build.
-This lets llama.cpp select architecture-specific Blackwell instructions and
-avoids compiling for unrelated GPUs. For a build without GPU access, provide
-an explicit list such as `CMAKE_CUDA_ARCHITECTURES='75;120'`; `120` alone targets
-this RTX 5090. Avoid `all` and `all-major`: the pinned summary engine cannot
-correctly translate those aliases for Blackwell.
+CUDA detects visible NVIDIA GPUs and builds explicit targets for those devices.
+If a sandbox or headless builder blocks device access, it uses the targets
+supported by the installed CUDA toolkit instead. Explicit targets let llama.cpp
+select the architecture-specific instructions required by Blackwell. The sandbox
+fallback builds more targets and takes longer. Set `CMAKE_CUDA_ARCHITECTURES=120`
+for a faster RTX 5090-only build, or provide a list such as `'75;120'`.
+Avoid `all` and `all-major`: the pinned summary engine cannot correctly translate
+those aliases for Blackwell.
 For HIP builds without an accessible GPU (such as a clean chroot), set
 `AMDGPU_TARGETS` to the intended device, for example `gfx1100`.
 CI compiles CUDA for both `75` and `120`, and HIP for `gfx1100`, without requiring
@@ -67,7 +69,7 @@ binary package. No GPU detection changes a package's dependencies.
 
 ## Updates and publication
 
-All six recipes have passed CI and been pushed to AUR. Select the appropriate
+The recipes are published on AUR. Select the appropriate
 package in Shelly or install with, for example, `paru -S meetily-cuda`. Normal AUR updates (`paru -Syu`, or Shelly's
 update screen) rebuild that variant when its recipe changes. GPU drivers remain
 managed by your distribution.
@@ -101,6 +103,11 @@ The font license is installed alongside the application license.
 
 Meetily's own update checks are disabled in these builds; the Arch package
 manager owns application updates. Model downloads remain managed by Meetily.
+
+Build tools use private HOME and XDG configuration directories inside the source
+build directory. Cargo can therefore fetch the public Git dependencies inside
+Shelly's Landlock sandbox without reading personal Git configuration. Rustup's
+existing toolchain location is preserved when relevant.
 
 ## Checks
 

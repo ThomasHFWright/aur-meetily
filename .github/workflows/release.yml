@@ -41,6 +41,9 @@ jobs:
       - name: Validate committed recipe
         run: |
           runuser -u builder -- python ../../.github/scripts/update-release.py --self-test
+          if [ '${{ matrix.package }}' = meetily-cuda ]; then
+            runuser -u builder -- bash ../../.github/scripts/test-cuda-architectures.sh
+          fi
           runuser -u builder -- makepkg --printsrcinfo > /tmp/generated-srcinfo
           diff -u .SRCINFO /tmp/generated-srcinfo
       - name: Install build dependencies and freeze publication files
