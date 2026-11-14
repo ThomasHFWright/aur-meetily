@@ -1,7 +1,7 @@
 pkgbase = meetily-openblas
 	pkgdesc = Local meeting transcription and summaries (OpenBLAS CPU build)
-	pkgver = 0.4.1
-	pkgrel = 2
+	pkgver = 0.5.0
+	pkgrel = 1
 	url = https://github.com/Zackriya-Solutions/meetily
 	arch = x86_64
 	license = MIT
@@ -33,17 +33,17 @@ pkgbase = meetily-openblas
 	depends = webkit2gtk-4.1
 	depends = openblas
 	optdepends = ollama: local Ollama model provider
-	provides = meetily=0.4.1
+	provides = meetily=0.5.0
 	conflicts = meetily
 	options = !lto
 	options = !debug
-	source = meetily-0.4.1.tar.gz::https://github.com/Zackriya-Solutions/meetily/archive/refs/tags/v0.4.1.tar.gz
+	source = meetily-0.5.0.tar.gz::https://github.com/Zackriya-Solutions/meetily/archive/refs/tags/v0.5.0.tar.gz
 	source = arch.patch
 	source = meetily.desktop
 	source = SourceSans3VF-Upright.ttf::https://raw.githubusercontent.com/adobe-fonts/source-sans/3.052R/VF/SourceSans3VF-Upright.ttf
 	source = source-sans-LICENSE.md::https://raw.githubusercontent.com/adobe-fonts/source-sans/3.052R/LICENSE.md
 	source = onnxruntime-1.22.0-x86_64.tgz::https://cdn.pyke.io/0/pyke:ort-rs/ms@1.22.0/x86_64-unknown-linux-gnu.tgz
-	sha256sums = 66f06a1c4b60334d1c6d62c5f97bc5e847df33e98240ef125be01bacb7274b88
+	sha256sums = d3f3048799144016b82eabe5e468400e485c70efba32b6b36220afe49bfb106f
 	sha256sums = 47f7a3f53dcb7b6380871c319d9db7de74642108f082469affe5fbbf0c887f63
 	sha256sums = 5e7e443ebafc9c2cdedede09c6cbe6be646358b52954151753c58ddb8e332016
 	sha256sums = 1147db9a3f0edd4956068de77930148acce2742dd76d57f7239b2b1c687ac63f

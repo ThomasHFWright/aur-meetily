@@ -1,7 +1,7 @@
 # Maintainer: Snoopey
 pkgname=meetily-hipblas
-pkgver=0.4.1
-pkgrel=2
+pkgver=0.5.0
+pkgrel=1
 pkgdesc='Local meeting transcription and summaries (AMD ROCm HIPBLAS build)'
 arch=('x86_64')
 url='https://github.com/Zackriya-Solutions/meetily'
@@ -18,7 +18,7 @@ source=("meetily-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz"
         'SourceSans3VF-Upright.ttf::https://raw.githubusercontent.com/adobe-fonts/source-sans/3.052R/VF/SourceSans3VF-Upright.ttf'
         'source-sans-LICENSE.md::https://raw.githubusercontent.com/adobe-fonts/source-sans/3.052R/LICENSE.md'
         'onnxruntime-1.22.0-x86_64.tgz::https://cdn.pyke.io/0/pyke:ort-rs/ms@1.22.0/x86_64-unknown-linux-gnu.tgz')
-sha256sums=('66f06a1c4b60334d1c6d62c5f97bc5e847df33e98240ef125be01bacb7274b88'
+sha256sums=('d3f3048799144016b82eabe5e468400e485c70efba32b6b36220afe49bfb106f'
             '534b3dd93175a9ab06700faaddc07211f9ffdc2f2bfce53cb4004337b67ed3f4' '5e7e443ebafc9c2cdedede09c6cbe6be646358b52954151753c58ddb8e332016' '512a01ca69f1b0cc20946a23002f983f6d51468eaacbe71034f52b70993dfe24'
             '1147db9a3f0edd4956068de77930148acce2742dd76d57f7239b2b1c687ac63f'
             '89ad2c4f66dd29127527493e729c31e731f111cf10faf5774c3db9275ed0c22c'
